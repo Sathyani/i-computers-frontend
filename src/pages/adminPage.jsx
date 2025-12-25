@@ -2,6 +2,8 @@ import { Link, Route, Routes } from 'react-router-dom'
 import { LuClipboardList, LuBoxes  } from "react-icons/lu";
 import { FiUsers } from "react-icons/fi";
 import { MdOutlineRateReview } from "react-icons/md";
+import AdminProductsPage from './admin/adminProductsPage';
+import AdminAddProductPage from './admin/adminAddProductPage';
 
 export default function AdminPage() {
   return (
@@ -11,7 +13,7 @@ export default function AdminPage() {
           <img src='/logo.png' className='h-full'/>
           <h1 className='text-2xl'>Admin </h1>
         </div>
-        <div className='w-full h-[400px] text-2xl text-white flex flex-col'>
+        <div className='w-full h-[400px] text-2xl text-primary flex flex-col pt-[20px] pl-[20px]'>
           <Link to='/admin' className='w-full flex h-[50px] gap-[10px]'><LuClipboardList />Orders</Link>
           <Link to='/admin/products' className='w-full flex h-[50px] gap-[10px]'><LuBoxes />Products</Link>
           <Link to='/admin/users' className='w-full flex h-[50px] gap-[10px]'><FiUsers />Users</Link>
@@ -21,10 +23,11 @@ export default function AdminPage() {
       </div>
       <div className='w-[calc(100%-300px)] h-full max-h-full border-[5px] overflow-y-scroll rounded-4xl border-accent bg-primary'>
         <Routes>
-          <Route index element={<h1>Orders</h1>} /> 
-          <Route path='products' element={<h1>Products</h1>} />
-          <Route path='users' element={<h1>Users</h1>} />
-          <Route path='reviews' element={<h1>Reviews</h1>} />
+          <Route path='/' element={<h1>Orders</h1>} /> 
+          <Route path='/products' element={<AdminProductsPage/>} />
+          <Route path='/add-product' element={<AdminAddProductPage />} />
+          <Route path='/users' element={<h1>Users</h1>} />
+          <Route path='/reviews' element={<h1>Reviews</h1>} />
 
         </Routes>
 
