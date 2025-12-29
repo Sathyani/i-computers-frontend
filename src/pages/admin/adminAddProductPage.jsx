@@ -7,11 +7,11 @@ import axios from "axios";
 export default function AdminAddProductPage() {
   const [productID, setProductID] = useState("");
 	const [name, setName] = useState("");
-	const [altNames, setAltNames] = useState("");
+	const [altName, setAltName] = useState("");
 	const [description, setDescription] = useState("");
 	const [price, setPrice] = useState(0);
-	const [labelledPrice, setLabelledPrice] = useState(0);
-	const [files, setFiles] = useState([]);
+	const [labelPrice, setLabelPrice] = useState(0);
+	const [images, setImages] = useState("");
 	const [category, setCategory] = useState("");
 	const [brand, setBrand] = useState("");
 	const [model, setModel] = useState("");
@@ -23,7 +23,7 @@ export default function AdminAddProductPage() {
     const token = localStorage.getItem("token")
 
     if(token == null){
-      toast.error("YOu must be logged in as admin to add product")
+      toast.error("You must be logged in as admin to add product")
       navigate('/login')
       return
     }
@@ -34,15 +34,15 @@ export default function AdminAddProductPage() {
     }
 
     try{
-      const altNamesInArray = altNames.split(",")
-      const imgInArray = altNames.split(",")
+      const altNamesInArray = altName.split(",")
+      const imgInArray = images.split(",")
       await axios.post(import.meta.env.VITE_BACKEND_URL + "/products/", {
         productID : productID,
         name : name,
-        altNames : altNamesInArray,
+        altName : altNamesInArray,
         description : description,
         price : price,
-        labelledPrice : labelledPrice,
+        labelPrice : labelPrice,
         images : imgInArray,
         category : category,
         brand : brand,
@@ -103,9 +103,9 @@ export default function AdminAddProductPage() {
               <label>Alternative Names</label>
               <input
                 type="text"
-                value={altNames}
+                value={altName}
                 onChange={(e) => {
-                  setAltNames(e.target.value);
+                  setAltName(e.target.value);
                 }}
                 className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"/>
               <p className="text-sm text-gray-500 w-full text-right">
@@ -138,9 +138,9 @@ export default function AdminAddProductPage() {
               <label>Labelled Price</label>
               <input
                 type="number"
-                value={labelledPrice}
+                value={labelPrice}
                 onChange={(e) => {
-                  setLabelledPrice(e.target.value);
+                  setLabelPrice(e.target.value);
                 }}
                 className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"/>
             </div>
@@ -148,10 +148,10 @@ export default function AdminAddProductPage() {
             <div className="my-[10px] w-full">
               <label>Images</label>
               <input
-                type="file"
-                multiple={true}
+                type="text"
+                value={images}
                 onChange={(e) => {
-                  setFiles(e.target.files);
+                  setImages(e.target.value);
                 }}
                 className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"/>
             </div>
@@ -210,7 +210,7 @@ export default function AdminAddProductPage() {
                 className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"/>
               </div>
 
-            <div className="my-[10px] flex flex-col items-center  w-[48%]">
+            <div className="my-[10px] flex flex-col items-center  w-[40%]">
               <label>Available</label>
               <select value={isAvailable} onChange={(e) => setIsAvailable(e.target.value)} className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]">
                 <option value={true}>Yes</option>
